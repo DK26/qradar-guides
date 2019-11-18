@@ -1,0 +1,26 @@
+# How to setup and use the Vagrantfile for QRadarCE
+
+# Create directory for Vagrantfile
+mkdir community_edition
+
+# Extract zip to directory
+unzip QRadarCE_Vagrantfile.20180613163615.zip -d community_edition/
+
+# Install vagrant plugins needed:
+vagrant plugin install vagrant-disksize
+vagrant plugin install vagrant-reload
+
+# Make sure you have your QRadar CE ISO in the same directory as the Vagrantfile
+cp QRadarCE.iso community_edition/
+
+# Go into the directory
+cd community_edition/
+
+# Touch the auto_install to tell the Vagrantfile that you want it to automatically install QRadar
+touch auto_install
+
+# Accept the EULA
+## Add --accept-eula argument to /media/cdrom/setup --no-screen in the Vagrantfile to accept the EULA
+
+# Bring up the VM and start the QRadar install (takes about 1 hour)
+vagrant up

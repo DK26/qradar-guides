@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>FoxPush Data</title>
+    <meta name="robots" content="noindex,nofollow">
+</head>
+<body>
+
+
+<script type="text/javascript">
+    (function()
+    {
+
+        var Cookie =
+        {
+            set: function(name, value, days)
+            {
+                var domain, domainParts, date, expires, host;
+
+                if (days)
+                {
+                    date = new Date();
+                    date.setTime(date.getTime()+(days*24*60*60*1000));
+                    expires = "; expires="+date.toGMTString();
+                }
+                else
+                {
+                    expires = "";
+                }
+
+                host = location.host;
+                if (host.split('.').length === 1)
+                {
+                    document.cookie = name+"="+value+expires+"; path=/";
+                }
+                else
+                {
+                    domainParts = host.split('.');
+                    domainParts.shift();
+                    domain = '.'+domainParts.join('.');
+                    document.cookie = name+"="+value+expires+"; path=/; domain="+domain;
+                    if (Cookie.get(name) == null || Cookie.get(name) != value)
+                    {
+                        domain = '.'+host;
+                        document.cookie = name+"="+value+expires+"; path=/; domain="+domain;
+                    }
+                }
+            },
+
+            get: function(name)
+            {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i=0; i < ca.length; i++)
+                {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ')
+                    {
+                        c = c.substring(1,c.length);
+                    }
+
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                }
+                return null;
+            },
+
+            erase: function(name)
+            {
+                Cookie.set(name, '', -1);
+            }
+        };
+
+
+        function foxpush_guid() {
+            function s4() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                        .toString(16)
+                        .substring(1);
+            }
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                    s4() + '-' + s4() + s4() + s4();
+        }
+
+        var foxpush_uuid = foxpush_guid();
+        var browser_id;
+
+        if(Cookie.get('foxpush_browserid'))
+        {
+            browser_id = Cookie.get('foxpush_browserid');
+            Cookie.set('foxpush_browserid', browser_id,365);
+        }
+        else
+        {
+            browser_id = foxpush_uuid;
+            Cookie.set('foxpush_browserid', browser_id,365);
+        }
+
+        function urlBase64ToUint8Array(base64String) {
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding)
+                    .replace(/\-/g, '+')
+                    .replace(/_/g, '/');
+
+            const rawData = window.atob(base64);
+            const outputArray = new Uint8Array(rawData.length);
+
+            for (var i = 0; i < rawData.length; ++i) {
+                outputArray[i] = rawData.charCodeAt(i);
+            }
+            return outputArray;
+        }
+
+
+
+        function getSubscriptionId(subscription)
+        {
+            var endpointSections = subscription.split('/');
+            var subscriptionId = endpointSections[endpointSections.length - 1];
+
+
+            return subscriptionId;
+        }
+
+
+        function user_updatesubscribe(gcm_token,token,endpoint,auth,p256dh)
+        {
+
+            if(localStorage.foxpush_subscriber_fcmupdate == 0 || localStorage.foxpush_subscriber_fcmupdate === undefined)
+            {
+                var send_token = new XMLHttpRequest();
+                send_token.open('GET', 'https://subscribes.foxpush.com/subscription_update/?gcmtoken='+ gcm_token +'&token='+token+'&endpoint='+encodeURIComponent(endpoint)+'&auth='+ encodeURIComponent(auth) +'&p256dh='+encodeURIComponent(p256dh)+'&browser_id='+browser_id, true);
+
+                send_token.onload = function()
+                {
+                    if (send_token.status >= 200 && send_token.status < 400)
+                    {
+                        //No need for welcome notfication here but update localstorage value to avoid mutiple requests
+                        localStorage.foxpush_subscriber_fcmupdate = 1;
+                    }
+
+                };
+
+                send_token.send();
+
+            }
+        }
+
+        const vapidPublicKey = 'BESe3U7eNHsqucALOmyjSOuWOWmuAUmmbzDLQan1gMKPmHf9GGOrZhZce7gsVLL6HIvdsP7TzBqz6LaPDJJ9Z1g';
+        const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
+
+        if(localStorage.foxpush_subscriber_fcmupdate == 0 || localStorage.foxpush_subscriber_fcmupdate === undefined) {
+            navigator.serviceWorker.ready
+                    .then(function (serviceWorkerRegistration) {
+                        serviceWorkerRegistration.pushManager.getSubscription()
+                                .then(function (subscription) {
+
+                                    var old_keys_info = JSON.parse(JSON.stringify(subscription));
+
+                                    subscription.unsubscribe().then(function (successful) {
+
+                                        serviceWorkerRegistration.pushManager.subscribe(
+                                                {
+                                                    userVisibleOnly: true
+                                                    , applicationServerKey: convertedVapidKey
+                                                })
+                                                .then
+                                                (
+                                                        function (pushSubscription) {
+                                                            var keys_info = JSON.parse(JSON.stringify(pushSubscription));
+
+                                                            user_updatesubscribe(getSubscriptionId(old_keys_info.endpoint), getSubscriptionId(keys_info.endpoint), keys_info.endpoint, keys_info.keys.auth, keys_info.keys.p256dh);
+
+
+                                                        }, function (error) {
+                                                            console.log(error);
+
+                                                        }
+                                                )
+                                                .catch(function (error) {
+                                                    //DOMException: Registration failed - A subscription with a different applicationServerKey (or gcm_sender_id) already exists; to change the applicationServerKey, unsubscribe then resubscribe.
+                                                    console.log(error);
+                                                });
+
+
+                                    }).catch(function (e) {
+                                        console.log(e);
+
+
+                                    });
+                                })
+                                .catch(function (err) {
+                                    console.log('Error during getSubscription(): ' + err);
+                                });
+
+                    });
+        }
+
+
+    })();
+
+
+</script>
+
+
+</body></html>
