@@ -85,6 +85,6 @@ Installation Manual by David Krasnitsky
 
 13. Let it install.
 
-14, Continue with step 8 in page 4.
+14. Continue with step 8 in page 4.
 	
 
