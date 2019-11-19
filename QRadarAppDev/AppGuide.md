@@ -100,7 +100,9 @@ It is now time to install QRadarSDK.
 
     - Delete an app
 
-### Manage Apps ###
+## Manage Apps ##
+
+### Local Management ###
 
 1. In your projects directory, create a new app directory by calling: `qradar_app_creator create -w <path to myapp>`
     - _This will run longer at the first run._
