@@ -27,9 +27,41 @@ You'll need to have a Python 2 version 2.7.9 or above installed on your developm
 
 4. You can refer to the `README.html` file inside of `QRadarAppSDK-1.1.0` for official guidelines reference as you keep reading the guidelines in here.
 
-### Pre-Installation
+### Pre-Install
 
 Before we go on, it's import to set an **virtual environment** for the proper python version, to make sure things do not conflict with the underlying OS and that everything is working just fine without needing to edit any SDK core files.
+
+1. Make sure you have the latest python 2 version:
+
+    - **Please refer to:** https://www.python.org/downloads/
+    
+    - The latest Python 2 version as of right now is `Python 2.7.17`: https://www.python.org/downloads/release/python-2717/
+
+    - Download the proper binaries & install on your system.
+    
+    - **Notice:** On Linux, it is _highly recommended_ to install Python using your official linux _package manager_ or _applications installer_.
+
+    - **Notice:** On Linux, make sure to install the `pip` tool for your Python 2 installation. 
+
+2. Make sure your `pip` is updated: `<Python 2 binary> -m pip install --upgrade pip`.
+
+3. Make sure you have the `virtualenv` module: `<Python 2 binary> -m pip install virtualenv`
+
+    * Either you get a message saying `Requirement already satisfied: virtualenv` or your `pip` tool will simply download & install the `virtualenv` module for you.
+
+4. Create a virtual, independed Python 2 environment:
+
+    * Make sure you are in `yourdevdir`.
+
+    * Create a virtual environment: `<Python 2 binary> -m virtualenv py2venv`
+
+5. Activate the virtual environment: 
+
+    - **Linux:** `source py2venv/bin/activate`
+
+    - **Windows:** `py2venv/bin/activate.bat`
+
+### Install
 
 5. Install the QRadarSDK in your system by running either `install.bat` for Windows or `sudo ./install.sh` for Linux.
 
