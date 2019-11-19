@@ -84,14 +84,28 @@ It is now time to install QRadarSDK.
 
 3. Use the `qradar_app_creator` command to handle everything related to QRadar Apps.
 
-    - Create an app directory.
+    - Create an app directory
 
-    - Run an app in its proper environment.
+    - Run an app in its proper environment
 
-4. In your projects directory, create a new app directory by calling: `qradar_app_creator create -w <path to myapp>`.
+    - Pack the app to a proper .zip file
+
+    - Deploy the app directly to QRadar
+
+    - Check app status.
+
+    - Authorize an app deployment
+
+    - Cancel an app deployment
+
+    - Delete an app
+
+### Manage Apps ###
+
+1. In your projects directory, create a new app directory by calling: `qradar_app_creator create -w <path to myapp>`.
     - _This will run longer at the first run._
 
-5. _Please refer to `README.html` **"Create an app"** section for farther guidelines_:
+2. _Please refer to `README.html` **"Create an app"** section for farther guidelines_:
 
     > On completion, the entries in the folder will include:
 
@@ -104,3 +118,9 @@ It is now time to install QRadarSDK.
     > * `run.py` - default Python script for running your app locally
 
     > To customize your app, edit the manifest and add/update files in the app folder.
+
+3. From this point, just refer to `README.html`.
+
+---
+
+To be continued...
