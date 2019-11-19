@@ -84,7 +84,7 @@ It is now time to install QRadarSDK.
 
 3. Use the `qradar_app_creator` command to handle everything related to QRadar Apps.
 
-    - Create an app directory
+    - Create an app directory with proper dependencies
 
     - Run an app in its proper environment
 
@@ -92,7 +92,7 @@ It is now time to install QRadarSDK.
 
     - Deploy the app directly to QRadar
 
-    - Check app status.
+    - Check app status
 
     - Authorize an app deployment
 
@@ -102,7 +102,7 @@ It is now time to install QRadarSDK.
 
 ### Manage Apps ###
 
-1. In your projects directory, create a new app directory by calling: `qradar_app_creator create -w <path to myapp>`.
+1. In your projects directory, create a new app directory by calling: `qradar_app_creator create -w <path to myapp>`
     - _This will run longer at the first run._
 
 2. _Please refer to `README.html` **"Create an app"** section for farther guidelines_:
@@ -119,7 +119,7 @@ It is now time to install QRadarSDK.
 
     > To customize your app, edit the manifest and add/update files in the app folder.
 
-3. From this point, just refer to `README.html`.
+3. From this point, just refer to `README.html`
 
 ---
 
