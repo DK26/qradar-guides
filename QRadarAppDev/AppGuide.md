@@ -90,3 +90,17 @@ It is now time to install QRadarSDK.
 
 4. In your projects directory, create a new app directory by calling: `qradar_app_creator create -w <path to myapp>`.
     - _This will run longer at the first run._
+
+5. _Please refer to `README.html` **"Create an app"** section for farther guidelines_:
+
+    > On completion, the entries in the folder will include:
+
+    > * `app` - contains source files for the app
+
+    > * `manifest.json` - JSON manifest file that describes the app
+
+    > * `qradar_appfw_venv` - Python virtual environment for running your app locally
+
+    > * `run.py` - default Python script for running your app locally
+
+    > To customize your app, edit the manifest and add/update files in the app folder.
