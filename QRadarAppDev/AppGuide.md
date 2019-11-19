@@ -65,16 +65,28 @@ It is now time to install QRadarSDK.
 
 **Notice:** You can now refer to the `README.html` file inside of `QRadarAppSDK-1.1.0` for official guidelines reference as you keep reading the guidelines in here.
 
-1. Make sure you are in the extracted `QRadarAppSDK-1.1.0` directory/
+1. Make sure you are in the extracted `QRadarAppSDK-1.1.0` directory.
 
     - **Example**: `./yourdevdir/QRadarAppSDK-1.1.0/`
 
-1. Install the QRadarSDK in your system by running either `install.bat` for Windows or `sudo ./install.sh` for Linux.
+    - **Linux**: Edit the file `./install.sh`:
 
-6. Use the `qradar_app_creator` command to handle everything related to QRadar Apps.
+        1. Find the line: `append_pip_modules_install $QRADAR_APP_CREATOR "--user"`
+
+        2. Remove the trailing `"--user"` from the line
+
+            - Expected result: `append_pip_modules_install $QRADAR_APP_CREATOR`
+
+        3. Save the file.
+
+
+2. Install the QRadarSDK in your system by running either `install.bat` for Windows or `sudo ./install.sh` for Linux.
+
+3. Use the `qradar_app_creator` command to handle everything related to QRadar Apps.
 
     - Create an app directory.
 
     - Run an app in its proper environment.
 
-6. In your projects directory, create a new app directory by calling: `qradar_app_creator create -w <path to myapp>`.
+4. In your projects directory, create a new app directory by calling: `qradar_app_creator create -w <path to myapp>`.
+    - _This will run longer at the first run._
