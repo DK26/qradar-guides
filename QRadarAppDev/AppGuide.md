@@ -114,7 +114,8 @@ It is now time to install QRadarSDK.
 
 #### Creating An App Directory ####
 
-1. In your projects directory, create a new app directory by calling: `qradar_app_creator create -w <path to myapp>`
+* In your projects directory, create a new app directory by calling: `qradar_app_creator create -w <path to myapp>`
+
     - _This will run longer at the first run._
 
     _Quoted from `README.html`:_
@@ -133,7 +134,8 @@ It is now time to install QRadarSDK.
 
 #### Run An App Locally ###
 
-1. In your projects directory, run an app by calling `qradar_app_creator run -w <path to myapp>`
+* In your projects directory, run an app by calling `qradar_app_creator run -w <path to myapp>`
+
 
 > Your app should now be running at `http://0.0.0.0:5000` (or `http://127.0.0.1:5000`).
 
@@ -144,6 +146,24 @@ It is now time to install QRadarSDK.
 > given the option to store those credentials for convenience. Credentials are stored in _clear text_ at 
 
 > `<HOME>/.qradar_appfw.auth`.
+
+#### Deploy An App to QRadar ####
+
+> To deply an app to the QRadar console, run this command:
+
+`qradar_app_creator deploy -q <QRadar console IP address> -u <QRadar user> -p com.mycompany.myapp.zip`
+
+> Deployment will assign a unique numeric identifier to your app, e.g. **1001**.
+
+> If your app uses OAuth, you must supply to the deployment the name of a QRadar user who 
+
+> has the capabilities requested by your app. If you already know which user you want to use 
+
+> for authorization you can supply that user’s name via the `-o` option. Otherwise, the 
+
+> deployment will prompt you to select an entry from a list of users who have the required
+
+> capabilities.
 
 ---
 
