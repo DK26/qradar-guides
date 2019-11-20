@@ -5,6 +5,8 @@
 
 You'll need to have a Python 2 version 2.7.9 or above installed on your development environment in order for QRadarSDK to even work.
 
+Later on at the **"Pre-Install"** section, we discuss how to establish such an environment.
+
 * **Notice:** Python 3 isn't supported.
 
 
@@ -100,14 +102,22 @@ It is now time to install QRadarSDK.
 
     - Delete an app
 
+4. **Bonus:** You may wish to shorten the command `qradar_app_creator` to maybe something like `qapp`. A way to do it is by assigning alias.
+
+    - **Windows Alias:** https://stackoverflow.com/questions/20530996/aliases-in-windows-command-prompt
+
+    - **Linux Alias:** https://www.tecmint.com/create-alias-in-linux/
+
 ## Manage Apps ##
 
 ### Local Management ###
 
+#### Creating An App Directory ####
+
 1. In your projects directory, create a new app directory by calling: `qradar_app_creator create -w <path to myapp>`
     - _This will run longer at the first run._
 
-2. _Please refer to `README.html` **"Create an app"** section for farther guidelines_:
+    _Quoted from `README.html`:_
 
     > On completion, the entries in the folder will include:
 
@@ -121,7 +131,19 @@ It is now time to install QRadarSDK.
 
     > To customize your app, edit the manifest and add/update files in the app folder.
 
-3. From this point, just refer to `README.html`
+#### Run An App Locally ###
+
+1. In your projects directory, run an app by calling `qradar_app_creator run -w <path to myapp>`
+
+> Your app should now be running at `http://0.0.0.0:5000` (or `http://127.0.0.1:5000`).
+
+> If your app has REST endpoints you can call them at this URL.
+
+> You will be prompted for QRadar user credentials when running the app. You will also be 
+
+> given the option to store those credentials for convenience. Credentials are stored in _clear text_ at 
+
+> `<HOME>/.qradar_appfw.auth`.
 
 ---
 
