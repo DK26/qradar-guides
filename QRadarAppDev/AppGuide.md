@@ -149,7 +149,7 @@ It is now time to install QRadarSDK.
 
 #### Deploy An App to QRadar ####
 
-> To deply an app to the QRadar console, run this command:
+> To deploy an app to the QRadar console, run this command:
 
 `qradar_app_creator deploy -q <QRadar console IP address> -u <QRadar user> -p com.mycompany.myapp.zip`
 
