@@ -114,11 +114,13 @@ It is now time to install QRadarSDK.
 
 #### Creating An App Directory ####
 
-* In your projects directory, create a new app directory by calling: `qradar_app_creator create -w <path to myapp>`
+* In your projects directory, create a new app directory by calling: 
+
+    `qradar_app_creator create -w <path to myapp>`
 
     - _This will run longer at the first run._
 
-    _Quoted from `README.html`:_
+* _Quoted from `README.html`:_
 
     > On completion, the entries in the folder will include:
 
@@ -132,88 +134,104 @@ It is now time to install QRadarSDK.
 
     > To customize your app, edit the manifest and add/update files in the app folder.
 
+
 #### Run An App Locally ###
 
-* In your projects directory, run an app by calling `qradar_app_creator run -w <path to myapp>`
+* In your projects directory, run an app by calling:
 
+    `qradar_app_creator run -w <path to myapp>`
 
-> Your app should now be running at `http://0.0.0.0:5000` (or `http://127.0.0.1:5000`).
+* _Quoted from `README.html`:_
 
-> If your app has REST endpoints you can call them at this URL.
+    > Your app should now be running at `http://0.0.0.0:5000` (or `http://127.0.0.1:5000`).
 
-> You will be prompted for QRadar user credentials when running the app. You will also be 
+    > If your app has REST endpoints you can call them at this URL.
 
-> given the option to store those credentials for convenience. Credentials are stored in _clear text_ at 
+    > You will be prompted for QRadar user credentials when running the app. You will also be 
 
-> `<HOME>/.qradar_appfw.auth`.
+    > given the option to store those credentials for convenience. Credentials are stored in _clear text_ at 
+
+    > `<HOME>/.qradar_appfw.auth`.
 
 #### Pack An App ####
 
-> When your app is ready for deployment to a QRadar instance, use this command to package it 
+* _Quoted from `README.html`:_
 
-> into a zip file:
+    > When your app is ready for deployment to a QRadar instance, use this command to package it 
 
-> `qradar_app_creator package -w <path to myapp> -p com.mycompany.myapp.zip`
+    > into a zip file:
+
+    > `qradar_app_creator package -w <path to myapp> -p com.mycompany.myapp.zip`
 
 #### Deploy An App to QRadar ####
 
-> To deploy an app to the QRadar console, run this command:
+* _Quoted from `README.html`:_
 
-> `qradar_app_creator deploy -q <QRadar console IP address> -u <QRadar user> -p com.mycompany.myapp.zip`
+    > To deploy an app to the QRadar console, run this command:
 
-> Deployment will assign a unique numeric identifier to your app, e.g. **1001**.
+    > `qradar_app_creator deploy -q <QRadar console IP address> -u <QRadar user> -p com.mycompany.myapp.zip`
 
-> If your app uses OAuth, you must supply to the deployment the name of a QRadar user who 
+    > Deployment will assign a unique numeric identifier to your app, e.g. **1001**.
 
-> has the capabilities requested by your app. If you already know which user you want to use 
+    > If your app uses OAuth, you must supply to the deployment the name of a QRadar user who 
 
-> for authorization you can supply that user’s name via the `-o` option. Otherwise, the 
+    > has the capabilities requested by your app. If you already know which user you want to use 
 
-> deployment will prompt you to select an entry from a list of users who have the required
+    > for authorization you can supply that user’s name via the `-o` option. Otherwise, the 
 
-> capabilities.
+    > deployment will prompt you to select an entry from a list of users who have the required
 
->
+    > capabilities.
 
-> If you choose to stop the deployment without choosing an authorization user, your app will 
+    >
 
-> remain in a state where it is waiting for authorization. You can subsequently authorize or 
+    > If you choose to stop the deployment without choosing an authorization user, your app will 
 
-> cancel the app deployment.
+    > remain in a state where it is waiting for authorization. You can subsequently authorize or 
+
+    > cancel the app deployment.
 
 #### Check App Status at QRadar ####
 
-> To check the status of your app, run this command:
+* _Quoted from `README.html`:_
 
-> `qradar_app_creator status -q <QRadar console IP address> -u <QRadar user> -a <app ID>`
+    > To check the status of your app, run this command:
+
+    > `qradar_app_creator status -q <QRadar console IP address> -u <QRadar user> -a <app ID>`
 
 #### Authorize An App Deployment to QRadar ####
 
-> To complete an app deployment that is waiting for authorization, run this command:
+* _Quoted from `README.html`:_
 
-> `qradar_app_creator authorize -q <QRadar console IP address> -u <QRadar user> -a <app ID>`
+    > To complete an app deployment that is waiting for authorization, run this command:
 
-> If you already know which user you want to use for authorization you can supply that user’s 
+    > `qradar_app_creator authorize -q <QRadar console IP address> -u <QRadar user> -a <app ID>`
 
-> name via the `-o` option. Otherwise, the deployment will prompt you to select an entry from a 
+    > If you already know which user you want to use for authorization you can supply that user’s 
 
-> list of users who have the required capabilities.
+    > name via the `-o` option. Otherwise, the deployment will prompt you to select an entry from a 
+
+    > list of users who have the required capabilities.
 
 #### Cancel An App Deployment to QRadar ####
 
-> To cancel an app deployment that has not completed, run this command:
+* _Quoted from `README.html`:_
 
-> `radar_app_creator cancel -q <QRadar console IP address> -u <QRadar user> -a <app ID>`
+    > To cancel an app deployment that has not completed, run this command:
+
+    > `radar_app_creator cancel -q <QRadar console IP address> -u <QRadar user> -a <app ID>`
 
 #### Delete An App From QRadar ####
 
-> You can delete an app using this command:
+* _Quoted from `README.html`:_
 
-> `qradar_app_creator delete -q <QRadar console IP address> -u <QRadar user> -a <app ID>`
+    > You can delete an app using this command:
 
-> Note that if an app’s deployment has not completed then you must cancel the deployment 
+    > `qradar_app_creator delete -q <QRadar console IP address> -u <QRadar user> -a <app ID>`
 
-> before attempting to delete the app.
+    > Note that if an app’s deployment has not completed then you must cancel the deployment 
+
+    > before attempting to delete the app.
 
 ---
 
