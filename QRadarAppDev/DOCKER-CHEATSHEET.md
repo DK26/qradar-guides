@@ -2,7 +2,9 @@
 
 `docker run -it --entrypoint /bin/sh <image>` 
 
-# Start container
+# Start container with shell
+
+`docker container start -i <container>`
 
    - REF: https://docs.docker.com/engine/reference/commandline/container_start/
 
