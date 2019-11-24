@@ -51,13 +51,13 @@
 
 # Import an exported container as image
 
-`zcat <container name>.gz | docker import - <provide a new image name>`
+`zcat <container name>.gz | docker import - <provide a new image name>:<provide tag>`
 
 # Export docker image
 
-`docker save -o <output tar image file> <image>`
+`docker save -o <output tar image file> <image>:<tag>`
 
-`docker save <image> | gzip > <image name>.tar.gz`
+`docker save <image>:<tag> | gzip > <image name>.tar.gz`
 
    - REF: https://stackoverflow.com/questions/23935141/how-to-copy-docker-images-from-one-host-to-another-without-using-a-repository
    - REF: https://docs.docker.com/engine/reference/commandline/save/
