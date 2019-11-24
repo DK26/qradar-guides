@@ -1,2 +1,4 @@
 *.iso
 *.zip
+*.gzip
+*.gz
