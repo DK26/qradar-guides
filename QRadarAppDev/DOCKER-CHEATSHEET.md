@@ -52,3 +52,15 @@
 # Import an exported container as image
 
 `zcat <container name>.gz | docker import - <provide a new image name>`
+
+# Export docker image
+
+`docker save -o <output tar image file> <image>`
+
+   - REF: https://stackoverflow.com/questions/23935141/how-to-copy-docker-images-from-one-host-to-another-without-using-a-repository
+
+# Import docker image
+
+`docker load -i <path to image tar file>`
+
+   - REF: https://stackoverflow.com/questions/23935141/how-to-copy-docker-images-from-one-host-to-another-without-using-a-repository
