@@ -47,7 +47,7 @@
 
 # Export running container
 
-`docker export <container> | gzip > <container name>.gz`
+`docker export <container> | gzip > <container name>.tar.gz`
 
 # Import an exported container as image
 
@@ -57,10 +57,16 @@
 
 `docker save -o <output tar image file> <image>`
 
+`docker save <image> | gzip > <image name>.tar.gz`
+
    - REF: https://stackoverflow.com/questions/23935141/how-to-copy-docker-images-from-one-host-to-another-without-using-a-repository
+   - REF: https://docs.docker.com/engine/reference/commandline/save/
 
 # Import docker image
 
 `docker load -i <path to image tar file>`
 
+`docker load < <image name>.tar.gz`
+
    - REF: https://stackoverflow.com/questions/23935141/how-to-copy-docker-images-from-one-host-to-another-without-using-a-repository
+   - REF: https://docs.docker.com/engine/reference/commandline/load/
