@@ -1,6 +1,6 @@
-# Start a container from image and enter its shell 
+# Create and run a container from image and enter its shell 
 
-`docker run -it --entrypoint /bin/sh <image>` 
+`docker run -it --name "<provide a new container name>" --entrypoint /bin/sh <image>` 
 
 # Start container with shell
 
