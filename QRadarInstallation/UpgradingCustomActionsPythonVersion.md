@@ -262,8 +262,10 @@ First, we need to make the sandbox environment more indepeneded from the main QR
 
     \# `vi /etc/fstab`
 
+    - Press `INSERT` to edit.
+
     **/etc/fstab**:
-    
+
     ```bash
     #     
     # /etc/fstab    
@@ -340,9 +342,17 @@ First, we need to make the sandbox environment more indepeneded from the main QR
 
    5. Copy all contents of `/bin` and `/usr/bin` to `/opt/qradar/bin/ca_jail/bin` and `/opt/qradar/bin/ca_jail/usr/bin`:
 
-   \# `cp -R /bin/* /opt/qradar/bin/ca_jail/bin`
+    \# `cp -R /bin/* /opt/qradar/bin/ca_jail/bin`
 
-   \# `cp -R /usr/bin/* /opt/qradar/bin/ca_jail/usr/bin`
+    \# `cp -R /usr/bin/* /opt/qradar/bin/ca_jail/usr/bin`
+
+   6. Replace sandbox **Python 2.7.5** with **Python 2.7.17**:
+
+    \# `\cp -R /opt/qradar/bin/ca_jail/python-2.7.17/bin/* /opt/qradar/bin/ca_jail/bin`
+
+    \# `\cp -R /opt/qradar/bin/ca_jail/python-2.7.17/bin/* /opt/qradar/bin/ca_jail/usr/bin`
+
+   7. We're done! Now it's time to verify that the upgrade was indeed successful.
 
 
 
