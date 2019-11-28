@@ -72,13 +72,62 @@ These are the general steps we are about to take, before we dive into the specif
    
 ## Setup Environment
 
-In our example, we're going to use docker as my workstation is running a Linux with Docker already installed. 
-If you're not using Docker, just skip all the Docker parts and focus on the CentOS/Red Hat environment parts. 
+In our example, we're going to use docker since my own workstation is running on Linux with Docker already installed. 
+
+If you're not using Docker or Linux, just skip all the Docker parts and focus on the CentOS/Red Hat environment parts which you may either install on a virtual machine or bare metal.
+
+### Docker: Download CentOS Image
+
+`docker pull centos:centos7.5.1804`
+
+### Docker: Create & Run CentOS Container
+
+`docker run -it --name "CentOS-For-QRadar" centos:centos7.5.1804`
+
+- **Notice:** I do not use the `--rm` switch because I personally like the idea that I can resume my container later from where I left off. But you may have a different agenda.
+
+* If you exit your container and would like to resume it later:
+
+    - Use `docker ps -a` and find the container ID of `CentOS-For-QRadar`
+
+    - Use the next command to resume its run:
+
+        `docker container start -i <container ID>`
+
+    - Remove the container (if you wish):
+
+        `docker rm <container ID>`
+
+        * Just make sure the container isn't running.
+
+### Update CentOS Environment
+
+All commands assume you are running as `root`, which as marked as `#`.
+
+However if you're in normal mode, marked as `$`, just add `sudo` to the start of each command.
+
+Run the following commands:
+
+\# `yum check-update`
+
+\# `yum update`
+
+   * Answer YES (Y) for any prompt.
+
+If you're on Docker, then run these commands:
+
+\# `yum install wget`
+
+\# `yum install make`
+
+Now we need to install updated GCC compilers for CentOS/Red Hat:
+
+\# `yum install gcc openssl-devel bzip2-devel`
 
 
-## Download & Compile The Latest Python 2
+### Download & Compile The Latest Python 2
 
-Assuming you already have a setup for the appropriate Red Hat or CentOS to compile the latest **Python 2**, we will start with the next set of commands:
+Assuming you are already running a setup of the appropriate Red Hat or CentOS to compile the latest **Python 2**, we will start with the next set of commands:
 
 
 
