@@ -1,10 +1,12 @@
 # Upgrading Custom Action's Python Version 
 
+
 ## Introduction
 
 QRadar 7.3.1 & 7.3.2 are using Python 2.7.5 (Red Hat's system default) as a platform for running custom actions script, althought their [documentation states that python 2.7.9](https://www.ibm.com/support/knowledgecenter/en/SS42VS_7.3.2/com.ibm.appfw.doc/c_appframework_CREResp.html) is the one that is used (which is also the minimum recommended version for QRadar App SDK). 
 
 Since this isn't the case, and python 2.7.5 is missing some crucial functionality (Namely, the ability to access REST API using secure TLS connection & SSLContext while there may be more stuff missing..)
+
 
 ## Disclaimer
 
@@ -76,9 +78,11 @@ In our example, we're going to use docker since my own workstation is running on
 
 If you're not using Docker or Linux, just skip all the Docker parts and focus on the CentOS/Red Hat environment parts which you may either install on a virtual machine or bare metal.
 
+
 ### Docker: Download CentOS Image
 
 `docker pull centos:centos7.5.1804`
+
 
 ### Docker: Create & Run CentOS Container
 
@@ -100,7 +104,8 @@ If you're not using Docker or Linux, just skip all the Docker parts and focus on
 
         * Just make sure the container isn't running.
 
-### Update CentOS Environment
+
+### Update CentOS/RedHat Environment
 
 All commands assume you are running as `root`, which as marked as `#`.
 
@@ -112,15 +117,15 @@ Run the following commands:
 
 \# `yum update`
 
-   * Answer YES (Y) for any prompt.
+   * Answer _"YES"_ / _"Y"_ for any prompt.
 
-If you're on Docker, then run these commands:
+If you're on Docker, run these commands:
 
 \# `yum install wget`
 
 \# `yum install make`
 
-Now we need to install updated GCC compilers for CentOS/Red Hat:
+Now we need to install updated GCC compilers for CentOS/RedHat:
 
 \# `yum install gcc openssl-devel bzip2-devel`
 
@@ -129,6 +134,5 @@ Now we need to install updated GCC compilers for CentOS/Red Hat:
 
 Assuming you are already running a setup of the appropriate Red Hat or CentOS to compile the latest **Python 2**, we will start with the next set of commands:
 
-
-
+1. For 
 
