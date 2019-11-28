@@ -222,4 +222,125 @@ Assuming you are already running a setup of the appropriate Red Hat or CentOS to
 
 ### Extract Python to QRadar
 
-   1. 
+   1. Login into QRadar terminal\shell environment, either directly or with your favorit SSH tool.
+
+   2. Get into the directory ("_cd_") where you previously copied the file `python-2.7.17-compiled.tar.gz` to QRadar.
+
+   3. Extract the compiled **Python 2.7.17**:
+
+    $ `tar xvzf python-2.7.17-compiled.tar.gz`
+
+    - The directory `python-2.7.17` should now appear.
+
+   4. Move the `python-2.7.17` directory to the QRadar's sandboxed environment:
+
+    \# `mv python-2.7.17 /opt/qradar/bin/ca_jail`
+
+    - The directory `python-2.7.17` should now be appear under `/opt/qradar/bin/ca_jail`. Full path: `/opt/qradar/bin/ca_jail/python-2.7.17`
+
+
+### Merge IBM Python Dependencies
+
+   \# `cp -R -n /usr/lib/python2.7/site-packages/* /opt/qradar/bin/ca_jail/python-2.7.17/lib/python2.7/site-packages` 
+
+   \# `cp -R -n /opt/qradar/lib/python/* /opt/qradar/bin/ca_jail/python-2.7.17/lib/python2.7/site-packages` 
+
+### Backup QRadar
+
+_This is the time to create a snapshot out of your QRadar appliance system because from this point we are getting dangerous!_
+
+
+### Setup Sandbox Environment
+
+First, we need to make the sandbox environment more indepeneded from the main QRadar appliance.
+
+   1. Backup `/etc/fstab`:
+
+    \# `cp /etc/fstab /etc/fstab_backup`
+
+   2. Remove persistent mounts of `/bin` and `/usr/bin` to `/opt/qradar/bin/ca_jail/bin` and `/opt/qradar/bin/ca_jail/usr/bin` from `/etc/fstab`
+
+    \# `vi /etc/fstab`
+
+    ```bash
+    #     
+    # /etc/fstab    
+    # Created by anaconda on Sun Nov 17 18:33:14 2019
+    #     
+    # Accessible filesystems, by reference, are maintained under '/dev/disk'
+    # See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+    #     
+    /dev/mapper/centos-root /                    xfs        noatime              0 0
+    UUID=e8f7c4c5-3cc7-4215-a143-b92227ce7150 /boot                xfs        defaults             0 0
+    /dev/mapper/centos-home /home                xfs        defaults             0 0
+    /dev/mapper/centos-swap swap                 swap       defaults             0 0
+    /bin                 /opt/qradar/bin/ca_jail/bin none       bind                  
+    /lib                 /opt/qradar/bin/ca_jail/lib none       bind                  
+    /lib64               /opt/qradar/bin/ca_jail/lib64 none       bind                  
+    /usr/bin             /opt/qradar/bin/ca_jail/usr/bin none       bind                  
+    /usr/lib             /opt/qradar/bin/ca_jail/usr/lib none       bind                  
+    /usr/lib64           /opt/qradar/bin/ca_jail/usr/lib64 none       bind                  
+    /usr/share           /opt/qradar/bin/ca_jail/usr/share none       bind                  
+    /opt/qradar/conf/custom_action_scripts /opt/qradar/bin/ca_jail/custom_action_scripts none       bind                  
+    sysfs                /sys                 sysfs      rw                   0 0
+    /dev/cdrom      /media/cdrom    auto    pamconsole,exec,noauto 0 0
+
+    ```
+
+    - Comment the line `/bin /opt/qradar/bin/ca_jail/bin none bind` by adding `#` sign at the beginning of the line.
+
+    - The result should be: `#/bin /opt/qradar/bin/ca_jail/bin none bind`
+
+    - Comment the line `/usr/lib             /opt/qradar/bin/ca_jail/usr/lib none       bind` by adding `#` sign at the beginning of the line.
+
+    - The result should be: `#/usr/lib             /opt/qradar/bin/ca_jail/usr/lib none       bind`
+
+    Final Result:
+
+    ```bash
+    #     
+    # /etc/fstab    
+    # Created by anaconda on Sun Nov 17 18:33:14 2019
+    #     
+    # Accessible filesystems, by reference, are maintained under '/dev/disk'
+    # See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+    #     
+    /dev/mapper/centos-root /                    xfs        noatime              0 0
+    UUID=e8f7c4c5-3cc7-4215-a143-b92227ce7150 /boot                xfs        defaults             0 0
+    /dev/mapper/centos-home /home                xfs        defaults             0 0
+    /dev/mapper/centos-swap swap                 swap       defaults             0 0
+    #/bin                 /opt/qradar/bin/ca_jail/bin none       bind                  
+    /lib                 /opt/qradar/bin/ca_jail/lib none       bind                  
+    /lib64               /opt/qradar/bin/ca_jail/lib64 none       bind                  
+    #/usr/bin             /opt/qradar/bin/ca_jail/usr/bin none       bind                  
+    /usr/lib             /opt/qradar/bin/ca_jail/usr/lib none       bind                  
+    /usr/lib64           /opt/qradar/bin/ca_jail/usr/lib64 none       bind                  
+    /usr/share           /opt/qradar/bin/ca_jail/usr/share none       bind                  
+    /opt/qradar/conf/custom_action_scripts /opt/qradar/bin/ca_jail/custom_action_scripts none       bind                  
+    sysfs                /sys                 sysfs      rw                   0 0
+    /dev/cdrom      /media/cdrom    auto    pamconsole,exec,noauto 0 0
+
+    ```
+
+   3. When you have verified that the changes are correct, save the file and exit `vi`:
+
+    - Press `ESC`
+    - Type `:wq`
+    - Press `ENTER`
+
+   4. Unmount `/opt/qradar/bin/ca_jail/bin` and `/opt/qradar/bin/ca_jail/usr/bin`:
+
+    \# `umount /opt/qradar/bin/ca_jail/bin`
+
+    \# `umount /opt/qradar/bin/ca_jail/usr/bin`
+
+   5. Copy all contents of `/bin` and `/usr/bin` to `/opt/qradar/bin/ca_jail/bin` and `/opt/qradar/bin/ca_jail/usr/bin`:
+
+   \# `cp -R /bin/* /opt/qradar/bin/ca_jail/bin`
+
+   \# `cp -R /usr/bin/* /opt/qradar/bin/ca_jail/usr/bin`
+
+
+
+    
+
