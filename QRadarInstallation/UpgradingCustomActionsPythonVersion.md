@@ -81,26 +81,26 @@ If you're not using Docker or Linux, just skip all the Docker parts and focus on
 
 ### Docker: Download CentOS Image
 
-`docker pull centos:centos7.5.1804`
+$ `docker pull centos:centos7.5.1804`
 
 
 ### Docker: Create & Run CentOS Container
 
-`docker run -it --name "CentOS-For-QRadar" centos:centos7.5.1804`
+`docker run -it --name "CentOS-for-QRadar" centos:centos7.5.1804`
 
 - **Notice:** I do not use the `--rm` switch because I personally like the idea that I can resume my container later from where I left off. But you may have a different agenda.
 
 * If you exit your container and would like to resume it later:
 
-    - Use `docker ps -a` and find the container ID of `CentOS-For-QRadar`
+    - Use $ `docker ps -a` and find the container ID of `CentOS-for-QRadar`
 
     - Use the next command to resume its run:
 
-        `docker container start -i <container ID>`
+        $ `docker container start -i <container ID>`
 
     - Remove the container (if you wish):
 
-        `docker rm <container ID>`
+        $ `docker rm <container ID>`
 
         * Just make sure the container isn't running.
 
@@ -113,26 +113,113 @@ However if you're in normal mode, marked as `$`, just add `sudo` to the start of
 
 Run the following commands:
 
-\# `yum check-update`
+\# `yum check-update; yum update`
 
-\# `yum update`
+   * Answer _"YES"_ / _"Y"_ to any prompt.
 
-   * Answer _"YES"_ / _"Y"_ for any prompt.
+Now we need to install updated GCC compilers with some basic tools for CentOS/RedHat:
 
-If you're on Docker, run these commands:
+\# `yum install wget make gcc openssl-devel bzip2-devel`
 
-\# `yum install wget`
-
-\# `yum install make`
-
-Now we need to install updated GCC compilers for CentOS/RedHat:
-
-\# `yum install gcc openssl-devel bzip2-devel`
-
+   * Answer _"YES"_ / _"Y"_ to any prompt.
 
 ### Download & Compile The Latest Python 2
 
 Assuming you are already running a setup of the appropriate Red Hat or CentOS to compile the latest **Python 2**, we will start with the next set of commands:
 
-1. For 
+1. For convenient reasons, lets work in the home directory of the current user.
 
+    \# `cd ~`
+
+    - **Notice:** If you're running with the _root_ user, you may need to make sure that the directory `/root` exists or else you may get an error. Just call `mkdir /root` and try to `cd ~` again.
+
+2. Since Python 2 is about to reach its "End-Of-Life" status and will no longer be supported, it is safe to assume that **Python2.7.17** is also the last version of Python 2 to be released (unless they release something right before they kill it). 
+
+    Because of this, I'll be using a direct download link to Python2.7.17. However if you wish to download a different version, just refer to: https://www.python.org/downloads/
+
+    **Download Python-2.7.17**:
+
+    \# `wget https://www.python.org/ftp/python/2.7.17/Python-2.7.17.tgz`
+
+
+3. When done downloading, it is time to extract the Python-2.7.17 installation:
+
+    \# `tar zxvf Python-2.7.17.tgz`
+
+    - A new directory will be created: `Python-2.7.17`
+
+4. Get to the `Python-2.7.17` directory:
+
+    \# `cd Python-2.7.17`
+
+5. Set Python-2.7.17 setup configurations:
+
+    \# `./configure --prefix=/python-2.7.17 --with-ensurepip=install --enable-optimizations`
+
+    - **Worth mentioning:** We are installing Python to the `/python-2.7.17` directory so its natural path will be under the root `/` directory as this will be the case in the future QRadar virtual environment.
+
+6. Install Python-2.7.17:
+
+    \# `make; make install`
+
+    - A new directory will be created: `/python-2.7.17`
+
+
+7. Lets change to the root directory:
+
+    \# `cd /`
+
+8. Time to pack our build into a `tar/gzip` file:
+
+    \# `tar -czvf python-2.7.17-compiled.tar.gz python-2.7.17`
+
+    - A new file will be created: `python-2.7.17-compiled.tar.gz`
+
+
+### Copy The Compiled Python to QRadar
+
+1. Retrieve the file `python-2.7.17-compiled.tar.gz` from your setup machine\container.
+
+
+#### Non-Docker Users:
+
+   - You will have to find a way to do it according to the method that you chose: _virtual machine_ or _bare metal_.
+
+
+#### Docker Users:
+
+   1. Open a new terminal on your Linux machine: `CTRL` + `ALT` + `T` is the default shortcut to open a terminal window.
+
+   2. You'll need your container ID (if you forgot it) which can be found within the container itself.   
+
+        Type this within the container's shell:       
+
+        \# `hostname`    
+
+        - By default, you should see the container's ID at the bash prompt: `[root@<container ID> /]#` 
+
+        or, use this command outside your container's shell to find out what is your container's ID:   
+
+        $ `docker ps -a`     
+
+        - If you've followed this manual, look for a container named `CentOS-for-QRadar`.
+   
+   3. Make sure the container is running.    
+
+    - If you've exit your container, use the next command to resume its run:    
+
+        $ `docker container start -i <container ID>`
+
+   4. Copy the `python-2.7.17-compiled.tar.gz` file from your container to your local Linux machine:
+
+        $ `docker cp <container ID>:/python-2.7.17-compiled.tar.gz ~`
+
+        - You should now have the file `python-2.7.17-compiled.tar.gz` placed in your home directory `~`.
+
+#### Copy python-2.7.17-compiled.tar.gz to QRadar
+
+   * Use your favorit tool and\or method: `WinSCP`, `FileZilla`, etc.
+
+### Extract Python to QRadar
+
+   1. 
