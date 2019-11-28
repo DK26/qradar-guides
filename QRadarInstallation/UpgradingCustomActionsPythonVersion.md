@@ -262,6 +262,8 @@ First, we need to make the sandbox environment more indepeneded from the main QR
 
     \# `vi /etc/fstab`
 
+    **/etc/fstab**:
+    
     ```bash
     #     
     # /etc/fstab    
@@ -296,6 +298,8 @@ First, we need to make the sandbox environment more indepeneded from the main QR
     - The result should be: `#/usr/lib             /opt/qradar/bin/ca_jail/usr/lib none       bind`
 
     Final Result:
+
+    **/etc/fstab**:
 
     ```bash
     #     
