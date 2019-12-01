@@ -1,5 +1,7 @@
 # Upgrading Custom Action's Python Version 
 
+Written by David Krasnitsky @ November 2019
+
 
 ## Introduction
 
@@ -395,7 +397,9 @@ Uncomment the two lines from the previous **"Setup Sandbox Environment"** sectio
    ```
 
 Uncomment by removing the `#` sign from the beginning of the lines: 
+
    1. `#/bin                 /opt/qradar/bin/ca_jail/bin none       bind`
+
    2. `#/usr/bin             /opt/qradar/bin/ca_jail/usr/bin none       bind `
 
 
