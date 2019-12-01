@@ -115,7 +115,7 @@ However if you're in normal mode, marked as `$`, just add `sudo` to the start of
 
 Run the following commands:
 
-\# `yum check-update; yum update`
+\# `yum check-update && yum update`
 
    * Answer _"YES"_ / _"Y"_ to any prompt.
 
@@ -162,7 +162,7 @@ Assuming you are already running a setup of the appropriate Red Hat or CentOS to
 
 6. Install Python-2.7.17:
 
-    \# `make; make install`
+    \# `make && make install`
 
     - A new directory will be created: `/python-2.7.17`
 
@@ -249,12 +249,12 @@ Assuming you are already running a setup of the appropriate Red Hat or CentOS to
 
 ### Backup QRadar
 
-_This is the time to create a snapshot out of your QRadar appliance system because from this point we are getting dangerous!_
+_It's time to create a snapshot out of our QRadar appliance system as we are about to touch some sensitive and dangerous files!_
 
 
 ### Setup Sandbox Environment
 
-First, we need to make the sandbox environment more indepeneded from the main QRadar appliance.
+First, we need to turn the sandbox environment to become more indepeneded from its main QRadar appliance.
 
    1. Backup `/etc/fstab`:
 
@@ -357,9 +357,18 @@ First, we need to make the sandbox environment more indepeneded from the main QR
    7. We're done! Now it's time to verify that the upgrade was indeed successful.
 
 
+## Verify Python Version
+
+Add, upload and **test the execution** of the next code snippet as a Python file _(.py)_ to find out which Python version is currently set to run in your _Custom-Action_ sandbox environment:
+
+```python
+import sys
+print "Python", sys.version
+```
+
 ---
 
-## Rollback
+## Rollback & Switching Between Python Versions
 
 ### Go Back to the default Python 2.7.5 
 
@@ -435,10 +444,10 @@ Uncomment by removing the `#` sign from the beginning of the lines:
 
 \# `mount --all`
 
-* You have now rolledback the sandbox environment back to Python 2.7.5! 
+* You have now rolled-back the sandbox environment to Python 2.7.5! 
 
-### Go Back to Python 2.7.17
-If you wish to get the sandbox environment back to the latest python again, just repeat _steps 1 to 4_ in the **"Setup Sandbox Environment"** section.
+### Go Back to the latest Python 2.7.17
+If you wish to get the sandbox environment back to the latest Python again, just repeat _steps 1 to 4_ in the **"Setup Sandbox Environment"** section.
 
 
 Best of luck!
