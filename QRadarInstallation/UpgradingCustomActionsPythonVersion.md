@@ -355,6 +355,90 @@ First, we need to make the sandbox environment more indepeneded from the main QR
    7. We're done! Now it's time to verify that the upgrade was indeed successful.
 
 
+---
+
+## Rollback
+
+### Go Back to the default Python 2.7.5 
+
+If you wish to rollback to the default Python 2.7.5 (for no special reason where you do not have to rollback by snapshot), all you need is to reassign the mounts in `/etc/fstab` 
+and then \# `mount --all` the sandbox's directories: `/opt/qradar/bin/ca_jail/bin` and `/opt/qradar/bin/ca_jail/usr/bin` to `/bin` and `/usr/bin` respectively.
+
+### Reasign Persistent Mounts
+
+Uncomment the two lines from the previous **"Setup Sandbox Environment"** section, _step 2_ in the file `/etc/fstab`.
+
+   **/etc/fstab**:
+
+   ```bash
+   #     
+   # /etc/fstab    
+   # Created by anaconda on Sun Nov 17 18:33:14 2019
+   #     
+   # Accessible filesystems, by reference, are maintained under '/dev/disk'
+   # See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+   #     
+   /dev/mapper/centos-root /                    xfs        noatime              0 0
+   UUID=e8f7c4c5-3cc7-4215-a143-b92227ce7150 /boot                xfs        defaults             0 0
+   /dev/mapper/centos-home /home                xfs        defaults             0 0
+   /dev/mapper/centos-swap swap                 swap       defaults             0 0
+   #/bin                 /opt/qradar/bin/ca_jail/bin none       bind                  
+   /lib                 /opt/qradar/bin/ca_jail/lib none       bind                  
+   /lib64               /opt/qradar/bin/ca_jail/lib64 none       bind                  
+   #/usr/bin             /opt/qradar/bin/ca_jail/usr/bin none       bind                  
+   /usr/lib             /opt/qradar/bin/ca_jail/usr/lib none       bind                  
+   /usr/lib64           /opt/qradar/bin/ca_jail/usr/lib64 none       bind                  
+   /usr/share           /opt/qradar/bin/ca_jail/usr/share none       bind                  
+   /opt/qradar/conf/custom_action_scripts /opt/qradar/bin/ca_jail/custom_action_scripts none       bind                  
+   sysfs                /sys                 sysfs      rw                   0 0
+   /dev/cdrom      /media/cdrom    auto    pamconsole,exec,noauto 0 0
+   ```
+
+Uncomment by removing the `#` sign from the beginning of the lines: 
+   1. `#/bin                 /opt/qradar/bin/ca_jail/bin none       bind`
+   2. `#/usr/bin             /opt/qradar/bin/ca_jail/usr/bin none       bind `
+
+
+**The final result should look like this:**
+
+   **/etc/fstab**:
+
+   ```bash
+   #     
+   # /etc/fstab    
+   # Created by anaconda on Sun Nov 17 18:33:14 2019
+   #     
+   # Accessible filesystems, by reference, are maintained under '/dev/disk'
+   # See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+   #     
+   /dev/mapper/centos-root /                    xfs        noatime              0 0
+   UUID=e8f7c4c5-3cc7-4215-a143-b92227ce7150 /boot                xfs        defaults             0 0
+   /dev/mapper/centos-home /home                xfs        defaults             0 0
+   /dev/mapper/centos-swap swap                 swap       defaults             0 0
+   /bin                 /opt/qradar/bin/ca_jail/bin none       bind                  
+   /lib                 /opt/qradar/bin/ca_jail/lib none       bind                  
+   /lib64               /opt/qradar/bin/ca_jail/lib64 none       bind                  
+   /usr/bin             /opt/qradar/bin/ca_jail/usr/bin none       bind                  
+   /usr/lib             /opt/qradar/bin/ca_jail/usr/lib none       bind                  
+   /usr/lib64           /opt/qradar/bin/ca_jail/usr/lib64 none       bind                  
+   /usr/share           /opt/qradar/bin/ca_jail/usr/share none       bind                  
+   /opt/qradar/conf/custom_action_scripts /opt/qradar/bin/ca_jail/custom_action_scripts none       bind                  
+   sysfs                /sys                 sysfs      rw                   0 0
+   /dev/cdrom      /media/cdrom    auto    pamconsole,exec,noauto 0 0
+   ```
+
+### Mount Everything Back
+
+\# `mount --all`
+
+* You have now rolledback the sandbox environment back to Python 2.7.5! 
+
+### Go Back to Python 2.7.17
+If you wish to get the sandbox environment back to the latest python again, just repeat _steps 1 to 4_ in the **"Setup Sandbox Environment"** section.
+
+
+Best of luck!
+
 
     
 
