@@ -449,6 +449,41 @@ Uncomment by removing the `#` sign from the beginning of the lines:
 ### Go Back to the latest Python 2.7.17
 If you wish to get the sandbox environment back to the latest Python again, just repeat _steps 1 to 4_ in the **"Setup Sandbox Environment"** section.
 
+---
+
+## Revert Environment (Complete Clean-up) 
+
+1. Uncomment the previously commented lines in `/etc/fstab` binding anything under `/opt/qradar/bin/ca_jail`.
+
+   * Please refer to the **"Reasign Persistent Mounts"** section above for the detailed procedure.
+
+2. Unmount (just in case -- Do NOT skip or else it's gameover) `/opt/qradar/bin/ca_jail/bin` and `/opt/qradar/bin/ca_jail/usr/bin`:
+
+   - **WARNING!** While they should already be unmounted, it is best to make sure everything is in sync! Failing to do so may _**destory the system**_.
+
+    \# `umount /opt/qradar/bin/ca_jail/bin`
+
+    \# `umount /opt/qradar/bin/ca_jail/usr/bin`
+
+3. Clean `/opt/qradar/bin/ca_jail/bin` and `/opt/qradar/bin/ca_jail/usr/bin`:
+
+    **WARNING!** _**Make sure you didn't skip step 2!**_
+
+    **WARNING!** _**It is recommended to have a system snapshot in place!**_
+
+   \# `rm -Rf /opt/qradar/bin/ca_jail/bin/*`
+
+   \# `rm -Rf /opt/qradar/bin/ca_jail/usr/bin/*`
+
+4. Mount everything back
+
+   \# `mount --all`
+
+5. Remove `python-2.7.17` directory
+
+   \# `rm -Rf python-2.7.17`
+
+6. We are done!
 
 Best of luck!
 
