@@ -7,7 +7,9 @@ Written by David Krasnitsky @ November 2019
 
 QRadar 7.3.1 & 7.3.2 are using Python 2.7.5 (Red Hat's system default) as a platform for running custom actions script, althought their [documentation states that python 2.7.9](https://www.ibm.com/support/knowledgecenter/en/SS42VS_7.3.2/com.ibm.appfw.doc/c_appframework_CREResp.html) is the one that is used (which is also the minimum recommended version for QRadar App SDK). 
 
-Since this isn't the case, and python 2.7.5 is missing some crucial functionality (Namely, the ability to access REST API using secure TLS connection & SSLContext while there may be more stuff missing..)
+Since this isn't the case, and Python 2.7.5 is missing some crucial functionality (Namely, the ability to access REST API using secure TLS connection & SSLContext while there may be more stuff missing..)
+
+**Important UPDATE:** At this moment, it seems that upgrading the Python version to 2.7.17 doesn't solve the SSLContext error in a TLS connection for the QRadar Custom Action environment itself, although it does seem to work just fine in a docker image container and the QRadar App environments. If you choose to upgrade anyway, then your reasons might be different than solving the SSLContext error.
 
 
 ## Disclaimer
