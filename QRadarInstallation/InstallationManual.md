@@ -35,72 +35,54 @@ Installation Manual by David Krasnitsky
 
 	1. Run the next commands as root (if you're running as non-root user, just use 'sudo' at the beginning of each command):
 
-		a. Run the command: 
+		a. Run the command:  
+		
+		   `vi /etc/selinux/config`
 
-       ```bash
-       vi /etc/selinux/config
-       ```
-			
-		b. Press the `insert` button on your keyboard to the edit.
+	    b. Press the `insert` button on your keyboard to the edit.
 
 		c. Go to: `SELINUX=`
 
-		d. Update the `SELINUX` value to `disabled`:
+		d. Update the `SELINUX` value to `disabled`:  
 		
-		```bash
-		    SELINUX=disabled
-        ```   
-			
-	    e. Press the ESC button to stop 'INSERT' mode and then enter the following line:
+		   `SELINUX=disabled`
+       
+	    e. Press the ESC button to stop 'INSERT' mode and then enter the following line: `:wq`   
+	        - `:wq` - This will write(w) to file and quit(q) VI
 
-       ```bash
-       :wq
-       ```
-	    - `:wq` - This will write(w) to file and quit(q) VI
-
-		f. Reset the virtual machine with the command:
-
-        ```bash
-        shutdown -r now
-        ```
+		f. Reset the virtual machine with the command:  
+		
+		   `shutdown -r now`
 			
 		g. When the machine is running again and you're logged, make sure SELinux is disabled by running the command:
+		
+		   `sestatus`
 
-		```bash
-		    sestatus
-		```
 
 8. Mounting the QRadar CE ISO file:
 
 	a. Insert into the virtual machine CD-DVD ROM the ISO file: `QRadarCE7_3_1.GA.iso`
 
-	b. Run the following command:
-
-    ```bash
-    mkdir /media/cdrom
-    ```
-
+	b. Run the following command:  
+	
+	   `mkdir /media/cdrom`
+	   
 	c. Mount the ISO with the following command:
-
-    ```bash
-    mount /dev/cdrom /media/cdrom
-    ```
-		
+	
+	   `mount /dev/cdrom /media/cdrom`
 
 9. Run QRadar CE Installation (First Run):
 
-    ```bash
-    /media/cdrom/setup
-    ```
+    `/media/cdrom/setup`
+
 	
 
 10. Accept all questions to processed with the Installation.
 
 11. At the end you will get a message telling you to restart the machine. Use the command:
 
-    ```bash
-    shutdown -r now
-    ```
+    `shutdown -r now`
+    
 
 12. When you are logged in again, repeat step 8.c and then run the setup again (repeat step 9)
 
