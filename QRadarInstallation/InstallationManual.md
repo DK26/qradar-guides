@@ -3,7 +3,7 @@
 Installation Manual by David Krasnitsky
 =======================================
 
-* Some of the steps in the official manual aren't complete or has errors in it, thus I've created this manual.
+* Some of the steps in the official manual aren't complete or have errors in them, thus I've created this manual.
 
 * Here is what I did to make it work on VirtualBox:
 
