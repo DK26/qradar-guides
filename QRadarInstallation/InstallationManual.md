@@ -37,7 +37,7 @@ Installation Manual by David Krasnitsky
 
 		a. Run the command:  
 		
-		   `vi /etc/selinux/config`
+		  `vi /etc/selinux/config`
 
 	    b. Press the `insert` button on your keyboard to the edit.
 
@@ -45,18 +45,18 @@ Installation Manual by David Krasnitsky
 
 		d. Update the `SELINUX` value to `disabled`:  
 		
-		   `SELINUX=disabled`
+		  `SELINUX=disabled`
        
 	    e. Press the ESC button to stop 'INSERT' mode and then enter the following line: `:wq`   
 	        - `:wq` - This will write(w) to file and quit(q) VI
 
 		f. Reset the virtual machine with the command:  
 		
-		   `shutdown -r now`
+		  `shutdown -r now`
 			
 		g. When the machine is running again and you're logged, make sure SELinux is disabled by running the command:
 		
-		   `sestatus`
+		  `sestatus`
 
 
 8. Mounting the QRadar CE ISO file:
@@ -65,11 +65,11 @@ Installation Manual by David Krasnitsky
 
 	b. Run the following command:  
 	
-	   `mkdir /media/cdrom`
+	  `mkdir /media/cdrom`
 	   
 	c. Mount the ISO with the following command:
 	
-	   `mount /dev/cdrom /media/cdrom`
+	  `mount /dev/cdrom /media/cdrom`
 
 9. Run QRadar CE Installation (First Run):
 
