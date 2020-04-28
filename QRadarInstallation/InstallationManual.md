@@ -1,7 +1,9 @@
-# QRadar 7.3.1 Community Edition
+# QRadar 7.3.1 Community Edition Installation Manual  
 
-Installation Manual by David Krasnitsky
 =======================================
+
+Source: https://github.com/DK26/qradar-guides/blob/master/QRadarInstallation/InstallationManual.md
+
 
 * Some of the steps in the official manual aren't complete or have errors in them, thus I've created this manual.
 
@@ -79,7 +81,7 @@ Installation Manual by David Krasnitsky
 
 10. Accept all questions to processed with the Installation.
 
-11. At the end you will get a message telling you to restart the machine. Use the command:
+11. In the end you will get a message telling you to restart the machine. Use the command:
 
     `shutdown -r now`
     
